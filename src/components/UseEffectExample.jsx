@@ -7,7 +7,7 @@ const UseEffectExample = () => {
     const [search, setSearch] = useState();
     const navigate = useNavigate();
 
-    // Fetch data from API
+    
     const getData = async () => {
         try {
             const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -15,8 +15,8 @@ const UseEffectExample = () => {
             if (result) {
                 const postsWithImages = result.map((item) => ({
                     ...item,
-                    image: `https://picsum.photos/id/${item.id}/300/200`, // Generate random image
-                    caption: "", // Initialize caption as empty
+                    image: `https://picsum.photos/id/${item.id}/300/200`,
+                    caption: "",
                 }));
                 setData(postsWithImages);
                 setFilteredData(postsWithImages);
@@ -29,7 +29,7 @@ const UseEffectExample = () => {
         }
     };
 
-    // Handle search input change
+ 
     const handleSearch = (event) => {
         const value = event.target.value.toLowerCase();
         setSearch(value);
@@ -41,16 +41,15 @@ const UseEffectExample = () => {
     };
 
     const isSetted =  JSON?.parse(localStorage.getItem("images"))
-    // Navigate to Add Caption Page
+
     const goToAddCaptionPage = (id) => {
         !isSetted?.length === 0 && localStorage.setItem("images",JSON?.stringify(filteredData))
         navigate(`/add-caption/${id}`);
     };
 
-    // Fetch data on mount
+   
     useEffect(() => {
         getData();
-       
     }, []);
 
     return (
