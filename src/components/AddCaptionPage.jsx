@@ -29,10 +29,14 @@ const AddCaptionPage = () => {
 
     const allImages = JSON.parse(localStorage.getItem("images"))
     useEffect(()=>{
-        setPost(...allImages?.filter((item)=>(
-             item?.id == id )))
+        let temp = allImages?.filter((item)=>(
+            item?.id == id ) )
+        console.log("Temp",temp)
 
-    },[])
+        setPost(temp?.[0])
+
+    },[id])
+    console.log("Post",post,allImages)
     const saveCaption = () => {
        const newImages  =  allImages?.map((item)=>
             item?.id == id ? ( { ...item, caption:post?.caption

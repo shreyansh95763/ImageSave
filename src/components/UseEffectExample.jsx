@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isElement } from "react-dom/test-utils";
 import { useNavigate } from "react-router-dom";
 
 const UseEffectExample = () => {
@@ -6,7 +7,7 @@ const UseEffectExample = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [search, setSearch] = useState();
     const navigate = useNavigate();
-
+    const isSetted =  JSON?.parse(localStorage.getItem("images"))
     
     const getData = async () => {
         try {
@@ -20,7 +21,7 @@ const UseEffectExample = () => {
                 }));
                 setData(postsWithImages);
                 setFilteredData(postsWithImages);
-             
+                (isSetted?.length === 0 || !isSetted) && localStorage.setItem("images",JSON?.stringify(postsWithImages))
             } else {
                 console.error("Response error");
             }
@@ -28,7 +29,7 @@ const UseEffectExample = () => {
             console.error("Error fetching data:", error);
         }
     };
-
+console.log("LOcal",isSetted)
  
     const handleSearch = (event) => {
         const value = event.target.value.toLowerCase();
@@ -40,10 +41,10 @@ const UseEffectExample = () => {
         localStorage.setItem("images",JSON?.stringify(filtered))
     };
 
-    const isSetted =  JSON?.parse(localStorage.getItem("images"))
+
 
     const goToAddCaptionPage = (id) => {
-        !isSetted?.length === 0 && localStorage.setItem("images",JSON?.stringify(filteredData))
+       ( isSetted?.length === 0 || !isSetted) && localStorage.setItem("images",JSON?.stringify(filteredData))
         navigate(`/add-caption/${id}`);
     };
 
